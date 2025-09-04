@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skeleton Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            line-height: 1.6;
+        }
+        h1, h2 {
+            color: #333;
+        }
+        p {
+            color: #555;
+        }
+</style>
+</head>
+<body>
+   <h1>Welcome to the Skeleton Page</h1>
+   <p style ="color: red">This is a basic HTML skeleton structure.</p>
+
+   <h2>Subsection</h2>
+   <p>More content can be added here.</p>
+
+   <hr>
+   <h2>Subsection</h2>
+   <p>More content can be added here.</p>
+   <script>
+    let x = 10;
+    x +=5;
+       console.log(`The value of x is: ${x}`);
+
+       alert('Hello World!');
+
+       //listens for mouse clicking on page then does alerts to prevent user from clicking
+       //changes background color during each alert
+document.addEventListener('mouseup', function(event) {
+    if (event.target.tagName === 'P') {
+        alert('Bitch Stop!');
+        document.body.style.backgroundColor = 'red'
+    } else if (event.target.tagName === 'H2') {
+        document.body.style.backgroundColor = 'yellow';
+        alert('seriously, stop it!');
+    } else if (event.target.tagName === 'H1') {
+        document.body.style.backgroundColor = 'orange';
+        alert('stoppp >:[ !');
+    }
+    });
+        </script>
+</body>
+</html>

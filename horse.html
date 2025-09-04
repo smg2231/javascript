@@ -1,0 +1,17 @@
+<body>
+    <div id = "horse">Neigh:</div>
+
+    <script>
+        //gets me a reference from the DOM
+        const horse = document.getElementById('horse') //searches for ID horse retrieving then storing it
+
+        //these are all equal
+        horse.textContent = 'am a horse';
+        horse.innerText = 'what i do?';
+        horse.innerHTML = "i gallop :) ";
+
+        setInterval(() => {
+            horse.textContent += '\n *';
+        },100);
+    </script>
+</body>

@@ -1,0 +1,19 @@
+<body>
+    <input type = "number" id = "num1">
+    +
+    <input type = "number" id = "num2">
+    =
+    <input type = "number" id = "answer">
+    <button id = "btn">Run Calculation</button>
+    <script>
+        const num1 = document.getElementById('num1');
+        const num2 = document.getElementById('num2');
+        const answer = document.getElementById('answer');
+        const btn = document.getElementById('btn');
+
+        btn.addEventListener('click',() => {
+            answer.value = Number(num1.value) + Number(num2.value);
+        
+        })
+    </script>
+</body>

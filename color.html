@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skeleton Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            line-height: 1.6;
+        }
+        h1, h2 {
+            color: #333;
+        }
+        p {
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+   <h1>Welcome to the Skeleton Page</h1>
+   <p style="color: red">This is a basic HTML skeleton structure.</p>
+
+   <h2>Subsection</h2>
+   <p>More content can be added here.</p>
+
+   <hr>
+   <h2>Subsection</h2>
+   <p>More content can be added here.</p>
+
+   <h2>Color Changer Below Me</h2>
+   <button id="colorButton">Change Color</button>
+
+   <script>
+       // color randomizer function
+       function getRandom() {
+           return "#" + Math.floor(Math.random() * 16777215).toString(16); //it scales 0 - 16777215 to hex
+           //rounds it to the nearest whole, converts to base 16 and adds # to create a proper css hex color
+       }
+
+       // every seconds changes color, setInterval continously calls the function, setTimeout calls it once after delay
+       setInterval(() => {
+           document.body.style.backgroundColor = getRandom(); 
+       }, 300);
+
+       // change on button click
+       document.getElementById('colorButton').addEventListener('click', () => {
+           document.body.style.backgroundColor = getRandomC(); //listenes for button click and once detected it changes the color
+       });
+   </script>
+</body>
+</html>
