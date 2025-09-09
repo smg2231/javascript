@@ -1,0 +1,101 @@
+<!DOCTYPE html> 
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Skeleton Page</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      line-height: 1.6;
+    }
+    h1, h2 {
+      color: #333;
+    }
+    p {
+      color: #555;
+    }
+
+    /* Your second code’s button styles */
+    #colorBtn {
+      color: black;
+      background-color: lightblue;
+      border-color: purple;
+    }
+    #ShooBtn {
+      color: black;
+      background-color: red;
+      border-color: orange;
+      position: absolute;
+      width: 100px;
+      height: 50px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <!-- First snippet content -->
+  <h1>Welcome to the Skeleton Page</h1>
+  <p style="color: red">This is a basic HTML skeleton structure.</p>
+
+  <h2>Subsection</h2>
+  <p>More content can be added here.</p>
+
+  <hr>
+  <h2>Subsection</h2>
+  <p>More content can be added here.</p>
+
+  <h2>Color Changer Below Me</h2>
+  <button id="colorButton">Change Color</button>
+
+  <!-- Second snippet content -->
+  <button id="colorBtn"
+          onmouseover="document.getElementById('colorBtn').innerText+='!'"
+          onclick="alert('hi')">
+  </button>
+  <button id="ShooBtn" onclick="alert('nice job')">Try to Get Me</button>
+
+  <script>
+    // === From first snippet ===
+    function getRandom() {
+      return "#" + Math.floor(Math.random() * 16777215).toString(16);
+    }
+
+    // auto change background color every 300ms
+    setInterval(() => {
+      document.body.style.backgroundColor = getRandom();
+    }, 300);
+
+    // change on button click
+    document.getElementById('colorButton').addEventListener('click', () => {
+      document.body.style.backgroundColor = getRandom();
+    });
+
+    // === From second snippet ===
+    function getMove() {
+      const btn = document.getElementById("ShooBtn");
+      const maxX = window.innerWidth - btn.offsetWidth;
+      const maxY = window.innerHeight - btn.offsetHeight;
+      const randomX = Math.floor(Math.random() * maxX);
+      const randomY = Math.floor(Math.random() * maxY);
+      btn.style.left = randomX + "px";
+      btn.style.top = randomY + "px";
+    }
+
+    let intervalTime = 2000;
+    let moveInterval = setInterval(getMove, intervalTime);
+
+    // Speed up on click
+    document.getElementById("ShooBtn").addEventListener("click", function() {
+      clearInterval(moveInterval);
+      intervalTime = Math.max(intervalTime - 400, 200); // don’t go under 200ms
+      moveInterval = setInterval(getMove, intervalTime);
+    });
+
+    // Move instantly when mouse hovers
+    document.getElementById("ShooBtn").addEventListener("mouseenter", getMove);
+  </script>
+</body>
+</html>
+
