@@ -31,8 +31,6 @@
           </label>
         </fieldset>
       </article>
-
-      <!-- Powerball Extras -->
       <article>
         <fieldset>
           <legend>Powerball Extras:</legend>
@@ -46,7 +44,6 @@
           </label>
         </fieldset>
       </article>
-
       <!-- Calculate button and result -->
       <fieldset role="group">
         <button id="calcBtn">Calculate</button>
@@ -58,30 +55,23 @@
         >
       </fieldset>
     </main>
-
     <script>
       document.getElementById("calcBtn").onclick = function() {
         var tickets = document.getElementById("ticketCount").value * 1;
         var lotteryPrice = document.querySelector('input[name="lottery"]:checked').value * 1; //converts string entry to a number
         //checks to see if it was checked then grabs value to converge it
-
         var powerplay = 0;
         var doubleplay = 0;
-
         if (document.getElementById("powerplay").checked) {
           powerplay = 1;
         }
-
         if (document.getElementById("doubleplay").checked) {
           doubleplay = 1;
         }
-
         var extras = powerplay + doubleplay;
-
         var baseCost = tickets * lotteryPrice;
         var extrasCost = tickets * extras;
         var total = baseCost + extrasCost;
-
         document.getElementById("totalCost").value = "$" + total;
       };
     </script>
