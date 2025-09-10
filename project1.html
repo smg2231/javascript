@@ -62,7 +62,8 @@
     <script>
       document.getElementById("calcBtn").onclick = function() {
         var tickets = document.getElementById("ticketCount").value * 1;
-        var lotteryPrice = document.querySelector('input[name="lottery"]:checked').value * 1;
+        var lotteryPrice = document.querySelector('input[name="lottery"]:checked').value * 1; //converts string entry to a number
+        //checks to see if it was checked then grabs value to converge it
 
         var powerplay = 0;
         var doubleplay = 0;
