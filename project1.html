@@ -31,8 +31,7 @@
           </label>
         </fieldset>
       </article>
-		 
-      <!-- Extras -->
+
       <article>
         <fieldset>
           <legend>Powerball Extras:</legend>
@@ -46,8 +45,6 @@
           </label>
         </fieldset>
       </article>
-			
-      <!-- Calculate button and result -->
       <fieldset role="group">
         <button id="calcBtn">Calculate</button>
         <input
@@ -60,28 +57,30 @@
 	
     </main>
 
-    <script>
-      document.getElementById("calcBtn").onclick = function() {
-        // get number of tickets
-        var tickets = parseInt(document.getElementById("ticketCount").value) || 0;
-        
-        // get lottery price (radio button selected)
-        var lottery = document.querySelector('input[name="lottery"]:checked');
-        var lotteryPrice = parseInt(lottery.value);
-        
-        // get extras (loop over all checkboxes checked)
-        var extras = 0;
-        var checkedExtras = document.querySelectorAll(".extra:checked");
-        for (var i = 0; i < checkedExtras.length; i++) {
-          extras += parseInt(checkedExtras[i].value);
-        }
-        
-        // total cost calculation
-        var total = tickets * (lotteryPrice + extras);
-        
-        // show result in the textbox
-        document.getElementById("totalCost").value = "$" + total.toFixed(2);
-      };
-    </script>
+   <script>
+  document.getElementById("calcBtn").onclick = function() {
+    // get number of tickets
+    var tickets = parseInt(document.getElementById("ticketCount").value) || 0;
+    
+    // get lottery price (radio button selected)
+    var lottery = document.querySelector('input[name="lottery"]:checked');
+    var lotteryPrice = parseInt(lottery.value);
+    
+    // get extras (loop over all checkboxes checked)
+    var extras = 0;
+    var checkedExtras = document.querySelectorAll(".extra:checked");
+    for (var i = 0; i < checkedExtras.length; i++) {
+      extras += parseInt(checkedExtras[i].value);
+    }
+    
+    // total cost calculation (fixed)
+    var baseCost = tickets * lotteryPrice;
+    var extrasCost = tickets * extras;
+    var total = baseCost + extrasCost;
+    
+    // show result in the textbox
+    document.getElementById("totalCost").value = "$" + total.toFixed(2);
+  };
+</script>
   </body>
 </html>
