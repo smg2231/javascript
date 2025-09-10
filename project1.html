@@ -1,0 +1,61 @@
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="light dark">
+    <link
+	  rel="stylesheet"
+	  href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css"
+	>
+    <title>Hello world!</title>
+  </head>
+  <body>
+    <main class="container">
+      <h1>Lottery</h1>
+	  
+		<input type="number" name="number" placeholder="How Many Tickets?" aria-label="Number">
+		
+		<article>
+			<fieldset>
+			  <legend>Lottery preference:</legend>
+			  <label>
+				<input type="radio" name="language" checked />
+				Powerball ($2/ticket)
+			  </label>
+			  <label>
+				<input type="radio" name="language" />
+				Powerball Lite ($1/ticket)
+			  </label>
+			</fieldset>
+		</article>
+		 
+		<article>
+			<fieldset>
+			  <legend>Powerball Extras:</legend>
+			  <label>
+				<input type="checkbox" name="language" />
+				Powerplay (+$1)
+			  </label>
+			  <label>
+				<input type="checkbox" name="language" />
+				Double Play (+$1)
+			  </label>
+			</fieldset>
+		</article>
+			
+		<fieldset role="group">
+			<button>Calculate</button>
+			<input
+			  type="text"
+			  name="text"
+			  value="$0.00"
+			  aria-label=""
+			  readonly
+			>
+		</fieldset>
+	
+	</main>
+  </body>
+</html>

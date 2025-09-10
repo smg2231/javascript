@@ -91,6 +91,7 @@
       clearInterval(moveInterval);
       intervalTime = Math.max(intervalTime - 400, 200); // don’t go under 200ms
       moveInterval = setInterval(getMove, intervalTime);
+      onclick = alert('nice job');
     });
 
     // Move instantly when mouse hovers
