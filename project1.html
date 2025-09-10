@@ -1,4 +1,3 @@
-
 <!doctype html>
 <html lang="en">
   <head>
@@ -6,56 +5,83 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="color-scheme" content="light dark">
     <link
-	  rel="stylesheet"
-	  href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css"
-	>
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css"
+    >
     <title>Hello world!</title>
   </head>
   <body>
     <main class="container">
       <h1>Lottery</h1>
 	  
-		<input type="number" name="number" placeholder="How Many Tickets?" aria-label="Number">
+      <!-- Number of tickets -->
+      <input type="number" id="ticketCount" placeholder="How Many Tickets?" aria-label="Number" min="1">
 		
-		<article>
-			<fieldset>
-			  <legend>Lottery preference:</legend>
-			  <label>
-				<input type="radio" name="language" checked />
-				Powerball ($2/ticket)
-			  </label>
-			  <label>
-				<input type="radio" name="language" />
-				Powerball Lite ($1/ticket)
-			  </label>
-			</fieldset>
-		</article>
+      <!-- Lottery type -->
+      <article>
+        <fieldset>
+          <legend>Lottery preference:</legend>
+          <label>
+            <input type="radio" name="lottery" value="2" checked>
+            Powerball ($2/ticket)
+          </label>
+          <label>
+            <input type="radio" name="lottery" value="1">
+            Powerball Lite ($1/ticket)
+          </label>
+        </fieldset>
+      </article>
 		 
-		<article>
-			<fieldset>
-			  <legend>Powerball Extras:</legend>
-			  <label>
-				<input type="checkbox" name="language" />
-				Powerplay (+$1)
-			  </label>
-			  <label>
-				<input type="checkbox" name="language" />
-				Double Play (+$1)
-			  </label>
-			</fieldset>
-		</article>
+      <!-- Extras -->
+      <article>
+        <fieldset>
+          <legend>Powerball Extras:</legend>
+          <label>
+            <input type="checkbox" class="extra" value="1">
+            Powerplay (+$1)
+          </label>
+          <label>
+            <input type="checkbox" class="extra" value="1">
+            Double Play (+$1)
+          </label>
+        </fieldset>
+      </article>
 			
-		<fieldset role="group">
-			<button>Calculate</button>
-			<input
-			  type="text"
-			  name="text"
-			  value="$0.00"
-			  aria-label=""
-			  readonly
-			>
-		</fieldset>
+      <!-- Calculate button and result -->
+      <fieldset role="group">
+        <button id="calcBtn">Calculate</button>
+        <input
+          type="text"
+          id="totalCost"
+          value="$0.00"
+          readonly
+        >
+      </fieldset>
 	
-	</main>
+    </main>
+
+    <script>
+      document.getElementById("calcBtn").onclick = function() {
+        // get number of tickets
+        var tickets = parseInt(document.getElementById("ticketCount").value) || 0;
+        
+        // get lottery price (radio button selected)
+        var lottery = document.querySelector('input[name="lottery"]:checked');
+        var lotteryPrice = parseInt(lottery.value);
+        
+        // get extras (loop over all checkboxes checked)
+        var extras = 0;
+        var checkedExtras = document.querySelectorAll(".extra:checked");
+        for (var i = 0; i < checkedExtras.length; i++) {
+          extras += parseInt(checkedExtras[i].value);
+        }
+        
+        // total cost calculation
+        var total = tickets * (lotteryPrice + extras);
+        
+        // show result in the textbox
+        document.getElementById("totalCost").value = "$" + total.toFixed(2);
+      };
+    </script>
   </body>
 </html>
