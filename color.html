@@ -34,19 +34,19 @@
 
    <script>
        // color randomizer function
-       function getRandom() {
-           return "#" + Math.floor(Math.random() * 16777215).toString(16); //it scales 0 - 16777215 to hex
-           //rounds it to the nearest whole, converts to base 16 and adds # to create a proper css hex color
-       }
+       //desc: it scales 0 - 16777215 to hex
+       //desc: rounds it to the nearest whole, converts to base 16 and adds # to create a proper css hex color
+       const getRandomHexColor = () => {return "#" + Math.floor(Math.random() * 16777215).toString(16);}
 
-       // every seconds changes color, setInterval continously calls the function, setTimeout calls it once after delay
+       // every few seconds changes color, setInterval continously calls getRandom
        setInterval(() => {
-           document.body.style.backgroundColor = getRandom(); 
+           document.body.style.backgroundColor = getRandomHexColor(); 
        }, 5000);
 
        // change on button click
+       //listens for button click and once detected it changes the color
        document.getElementById('colorButton').addEventListener('click', () => {
-           document.body.style.backgroundColor = getRandom(); //listenes for button click and once detected it changes the color
+           document.body.style.backgroundColor = getRandomHexColor();
        });
    </script>
 </body>
