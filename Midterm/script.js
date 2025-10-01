@@ -1,6 +1,6 @@
 const api = {
   key: '603d3433ebb3e3f3018c4b2e7c61f1f2',
-  base: 'https://api.openweathermap.org/data/2.5/weather?q={city name}&appid={API key}',
+  base: 'https://api.openweathermap.org/data/2.5/weather',
 };
 const Input = document.getElementById('input');
 
@@ -19,11 +19,10 @@ Input.addEventListener('keypress', (event) => {
   }
 });
 function getWeather(city) {
-  fetch(`${api.base}q=${city}&appid=${api.key}&units=metric`)
-    .then((details) => {
-      return details.json();
-    })
-    .then(showWeather);
+  fetch(`${api.base}?q=${city}&appid=${api.key}&units=metric`)
+    .then((res) => res.json())
+    .then(showWeather)
+    .catch((err) => console.error("Error fetching weather:", err));
 }
 function showWeather(details) {
   // City and country
