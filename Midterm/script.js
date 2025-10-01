@@ -1,7 +1,7 @@
 const api = {
   key: '603d3433ebb3e3f3018c4b2e7c61f1f2',
   base: 'https://api.openweathermap.org/data/2.5/weather',
-  //https://api.openweathermap.org/data/2.5/weather?q=15502&appid=603d3433ebb3e3f3018c4b2e7c61f1f2&units=metric
+  //https://api.openweathermap.org/data/2.5/weather?q=16601&appid=603d3433ebb3e3f3018c4b2e7c61f1f2&units=imperial
 };
 const Input = document.getElementById('input');
 
