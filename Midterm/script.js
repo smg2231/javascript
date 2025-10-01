@@ -20,7 +20,7 @@ Input.addEventListener('keypress', (event) => {
   }
 });
 function getWeather(city) {
-  fetch(`${api.base}?q=${city}&appid=${api.key}&units=metric`)
+  fetch(`${api.base}?q=${city}&appid=${api.key}&units=imperial`)
     .then((res) => res.json())
     .then(showWeather)
     .catch((err) => console.error("Error fetching weather:", err));
