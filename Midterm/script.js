@@ -32,13 +32,13 @@ function showWeather(details) {
 
   // Current temperature
   let temperature = document.getElementById('temp');
-  temperature.innerHTML = `${Math.round(details.main.temp)}°C`;
+  temperature.innerHTML = `${Math.round(details.main.temp)}°F`;
 
   // Min and Max temperatures
   let minMax = document.getElementById('min-max');
   minMax.innerHTML = `${Math.round(
     details.main.temp_min
-  )}°C (Min) and ${Math.round(details.main.temp_max)}°C (Max) `;
+  )}°F (Min) and ${Math.round(details.main.temp_max)}°F (Max) `;
 
   // Weather condition
   let weatherType = document.getElementById('weather-type');
