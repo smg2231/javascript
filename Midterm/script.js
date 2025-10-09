@@ -29,6 +29,8 @@ function showWeather(details) {
   // City and country
   let city = document.getElementById('city');
   city.innerHTML = `${details.name}, ${details.sys.country}`;
+  let zipcode = document.getElementById('zipcode');
+  zipcode.innerHTML = `Zipcode: ${details.zipcode}`;
 
   // Current temperature
   let temperature = document.getElementById('temp');
