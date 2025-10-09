@@ -35,21 +35,15 @@
   </style>
 </head>
 <body>
-  <!--style/design of page-->
   <h1>Welcome to the Skeleton Page</h1>
   <p style="color: red">This is a basic HTML skeleton structure.</p>
 
   <h2>Subsection</h2>
   <p>More content can be added here.</p>
 
-  <hr>
-  <h2>Subsection</h2>
-  <p>More content can be added here.</p>
-
   <h2>Color Changer Below Me</h2>
   <button id="colorButton">Change Color</button>
 
-  <!--buttons alert-->
   <button id="colorBtn"
           onmouseover="document.getElementById('colorBtn').innerText+='!'"
           onclick="alert('hi')">
@@ -62,7 +56,6 @@
       return "#" + Math.floor(Math.random() * 16777215).toString(16);
     }
 
-    // auto change background color every 300ms
     setInterval(() => {
       document.body.style.backgroundColor = getRandom();
     }, 600);
@@ -83,15 +76,15 @@
       btn.style.top = randomY + "px";
     }
 
-    let intervalTime = 2000; // initial interval time in ms
+    let intervalTime = 2000;
     let moveInterval = setInterval(getMove, intervalTime);
 
     // Speed up on click
     document.getElementById("ShooBtn").addEventListener("click", function() {
       clearInterval(moveInterval);
-      intervalTime = Math.max(intervalTime - 400); // substracts 400ms each click
+      intervalTime = Math.max(intervalTime - 400);
       moveInterval = setInterval(getMove, intervalTime);
-      onclick = alert('nice job'); //alert on click
+      onclick = alert('nice job')
     });
 
     // Move instantly when mouse hovers
