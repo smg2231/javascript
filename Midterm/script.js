@@ -30,7 +30,7 @@ function showWeather(details) {
   let city = document.getElementById('city');
   city.innerHTML = `${details.name}, ${details.sys.country}`;
   let zipcode = document.getElementById('zipcode');
-  zipcode.innerHTML = `Zipcode: ${details.zipcode}`;
+  zipcode.innerHTML = `Zipcode: ${details.sys.zipcode}`;
 
   // Current temperature
   let temperature = document.getElementById('temp');
