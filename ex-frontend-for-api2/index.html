@@ -1,1 +1,44 @@
-<h1>test</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Simple Weather App</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin-top: 50px;
+    }
+    input, button {
+      padding: 10px;
+      font-size: 16px;
+      margin: 5px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Weather by ZIP Code</h1>
+  <input type="text" id="zipcode" placeholder="Enter ZIP Code">
+  <input type="text" id="temperature" placeholder="Temperature" readonly>
+
+  <br>
+  <button onclick="showTemperature()">Get Temperature</button>
+
+  <script>
+    function showTemperature() {
+      const zip = document.getElementById('zipcode').value;
+      const tempBox = document.getElementById('temperature');
+
+      // Simple ZIP code validation
+      if (!zip || zip.length !== 5 || isNaN(zip)) {
+        tempBox.value = 'Invalid ZIP';
+        return;
+      }
+
+      // Simulate temperature (random between 30°F and 100°F)
+      const temp = Math.floor(Math.random() * (100 - 30 + 1)) + 30;
+      tempBox.value = `${temp} °F`;
+    }
+  </script>
+</body>
+</html>
