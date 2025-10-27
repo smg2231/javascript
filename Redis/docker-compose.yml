@@ -1,4 +1,4 @@
-version: '3'
+version: '3.8'
 services:
   redis:
     image: redis:latest
@@ -11,15 +11,17 @@ services:
     build: ./backend
     ports:
       - "3000:3000"
-    depends_on:
-      - redis
     environment:
       - REDIS_URL=redis://redis:6379
+    depends_on:
+      - redis
 
   frontend:
     build: ./frontend
     ports:
       - "8080:80"
+    depends_on:
+      - backend
 
 volumes:
   redis-data:

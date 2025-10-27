@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>People List</title>
+    https://code.jquery.com/jquery-3.6.0.min.js
+</head>
+<body>
+    <h1>People List</h1>
+    <input id="firstName" placeholder="First Name">
+    <input id="age" placeholder="Age">
+    <button id="addBtn">Add</button>
+    <table id="peopleTable" border="1">
+        <thead>
+            <tr><th>Name</th><th>Age</th><th>Actions</th></tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+
+    <script>
+        function loadPeople() {
+            $.get('http://localhost:3000/list', function(data) {
+                $('#peopleTable tbody').empty();
+                data.forEach((person, index) => {
+                    $('#peopleTable tbody').append(`
+                        <tr>
+                            <td>${person.firstName}</td>
+                            <td>${person.age}</td>
+                            <td>
+                                <button onclick="deletePerson(${index})">Delete</button>
+                                <button onclick="updatePerson(${index})">Update</button>
+                            </td>
+                        </tr>
+                    `);
+                });
+            });
+        }
+
+        $('#addBtn').click(function() {
+            const firstName = $('#firstName').val().trim();
+            const age = $('#age').val().trim();
+            if (!firstName || !age) {
+                alert('Please enter both name and age.');
+                return;
+            }
+            $.ajax({
+                url: 'http://localhost:3000/add',
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({ firstName, age }),
+                success: function() {
+                    $('#firstName').val('');
+                    $('#age').val('');
+                    loadPeople();
+                }
+            });
+        });
+
+        function deletePerson(index) {
+            $.ajax({
+                url: `http://localhost:3000/delete/${index}`,
+                type: 'DELETE',
+                success: loadPeople
+            });
+        }
+
+        function updatePerson(index) {
+            const newName = prompt('Enter new name:');
+            const newAge = prompt('Enter new age:');
+            if (!newName || !newAge) return;
+            $.ajax({
+                url: `http://localhost:3000/update/${index}`,
+                type: 'PUT',
+                contentType: 'application/json',
+                data: JSON.stringify({ firstName: newName, age: newAge }),
+                success: loadPeople
+            });
+        }
+
+        $(document).ready(loadPeople);
+    </script>
+</body>
+</html>
