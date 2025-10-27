@@ -2,7 +2,7 @@
 <html>
 <head>
     <title>People List</title>
-    https://code.jquery.com/jquery-3.6.0.min.js
+    https://code.jquery.com/jquery-3.6.0.min.js</script>
 </head>
 <body>
     <input id="firstName" placeholder="First Name">
@@ -11,8 +11,10 @@
     <table id="peopleTable" border="1"></table>
 
     <script>
+        const API_URL = 'http://localhost:3000';
+
         function loadPeople() {
-            $.get('http://localhost:3000/list', function(data) {
+            $.get(`${API_URL}/list`, function(data) {
                 $('#peopleTable').empty();
                 data.forEach(person => {
                     $('#peopleTable').append(`<tr><td>${person.firstName}</td><td>${person.age}</td></tr>`);
@@ -23,8 +25,12 @@
         $('#addBtn').click(function() {
             const firstName = $('#firstName').val();
             const age = $('#age').val();
-            $.post('http://localhost:3000/add', { firstName, age }, function() {
-                loadPeople();
+            $.ajax({
+                url: `${API_URL}/add`,
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({ firstName, age }),
+                success: loadPeople
             });
         });
 
