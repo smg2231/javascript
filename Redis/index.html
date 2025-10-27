@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>People List</title>
+    https://code.jquery.com/jquery-3.6.0.min.js
+</head>
+<body>
+    <input id="firstName" placeholder="First Name">
+    <input id="age" placeholder="Age">
+    <button id="addBtn">Add</button>
+    <table id="peopleTable" border="1"></table>
+
+    <script>
+        function loadPeople() {
+            $.get('http://localhost:3000/list', function(data) {
+                $('#peopleTable').empty();
+                data.forEach(person => {
+                    $('#peopleTable').append(`<tr><td>${person.firstName}</td><td>${person.age}</td></tr>`);
+                });
+            });
+        }
+
+        $('#addBtn').click(function() {
+            const firstName = $('#firstName').val();
+            const age = $('#age').val();
+            $.post('http://localhost:3000/add', { firstName, age }, function() {
+                loadPeople();
+            });
+        });
+
+        $(document).ready(loadPeople);
+    </script>
+</body>
+</html>
