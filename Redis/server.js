@@ -7,8 +7,7 @@ app.use(cors());
 app.use(express.json());
 
 // Create Redis client with URL
-const redisClient = createClient({ url: 'redis://localhost:6379' });
-
+const redisClient = createClient({ url: 'redis://redis:6379' }); // Use service name in Docker
 (async () => {
     try {
         await redisClient.connect();
