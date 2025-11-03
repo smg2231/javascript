@@ -5,7 +5,6 @@ const { createClient } = require('redis');
 const app = express();
 app.use(cors());
 app.use(express.json());
-app.use(express.static(__dirname)); // serve index.html from same folder
 
 // Connect to Redis
 const redisClient = createClient();
@@ -30,4 +29,4 @@ app.get('/list', async (req, res) => {
   res.send(people.map(p => JSON.parse(p)));
 });
 
-app.listen(3000, () => console.log('🚀 Server running on http://localhost:3000/list'));
+app.listen(3000, () => console.log('🚀 Server running on http://localhost:3000'));

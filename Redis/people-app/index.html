@@ -18,8 +18,11 @@
   </table>
 
   <script>
+    // 👇 Tell your frontend where the backend lives
+    const API_BASE = 'http://localhost:3000';
+
     function loadPeople() {
-      $.get('/list', function(data) {
+      $.get(`${API_BASE}/list`, function(data) {
         $('#peopleTable').empty();
         data.forEach(person => {
           $('#peopleTable').append(`<tr><td>${person.firstName}</td><td>${person.age}</td></tr>`);
@@ -36,7 +39,7 @@
       }
 
       $.ajax({
-        url: '/add',
+        url: `${API_BASE}/add`, // 👈 send to backend port 3000
         type: 'POST',
         contentType: 'application/json',
         data: JSON.stringify({ firstName, age }),
