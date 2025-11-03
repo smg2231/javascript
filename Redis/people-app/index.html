@@ -6,6 +6,7 @@
 </head>
 <body>
   <h1>People List</h1>
+
   <input id="firstName" placeholder="First Name">
   <input id="age" placeholder="Age">
   <button id="addBtn">Add</button>
@@ -18,11 +19,9 @@
   </table>
 
   <script>
-    // 👇 Tell your frontend where the backend lives
-    const API_BASE = 'http://localhost:3000';
-
+    // Frontend can now use relative URLs since it's same origin (localhost:3000)
     function loadPeople() {
-      $.get(`${API_BASE}/list`, function(data) {
+      $.get('/list', function(data) {
         $('#peopleTable').empty();
         data.forEach(person => {
           $('#peopleTable').append(`<tr><td>${person.firstName}</td><td>${person.age}</td></tr>`);
@@ -39,7 +38,7 @@
       }
 
       $.ajax({
-        url: `${API_BASE}/add`, // 👈 send to backend port 3000
+        url: '/add',
         type: 'POST',
         contentType: 'application/json',
         data: JSON.stringify({ firstName, age }),
