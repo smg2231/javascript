@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Halloween Settings</title>
+  <link rel="stylesheet" href="https://unpkg.com/@picocss/pico@latest/css/pico.min.css">
+  <style>
+    body {
+      background-color: #111;
+      color: white;
+      text-align: center;
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+    }
+
+    main {
+      padding-top: 1rem;
+      position: relative;
+      z-index: 10; /* ensure switches stay clickable */
+    }
+
+    /* Image setup */
+    .item {
+      position: absolute;
+      display: none;
+      opacity: 0;
+      transition: opacity 0.6s ease-in-out;
+      max-width: 20%;
+      height: auto;
+      z-index: 1;
+      pointer-events: none; /* prevent blocking clicks */
+    }
+
+    .visible {
+      display: block;
+      opacity: 1;
+    }
+
+    /* Position images around the page */
+    #nighttimeImg {
+      top: 5%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 15%;
+    }
+
+    /* moved clouds lower so it doesn't overlap switches */
+    #cloudsImg {
+      top: 35%;
+      left: 5%;
+      width: 18%;
+    }
+
+    #treesImg {
+      bottom: 5%;
+      left: 10%;
+      width: 25%;
+    }
+
+    #rainbowsImg {
+      top: 25%;
+      right: 5%;
+      width: 25%;
+    }
+
+    #vampiresImg {
+      bottom: 10%;
+      right: 20%;
+      width: 15%;
+    }
+  </style>
+</head>
+<body>
+  <main class="container">
+    <h1>Halloween Settings</h1>
+
+    <label>
+      Nighttime
+      <input type="checkbox" id="nighttime" role="switch">
+    </label>
+
+    <label>
+      Clouds
+      <input type="checkbox" id="clouds" role="switch">
+    </label>
+
+    <label>
+      Trees
+      <input type="checkbox" id="trees" role="switch">
+    </label>
+
+    <label>
+      Rainbows
+      <input type="checkbox" id="rainbows" role="switch">
+    </label>
+
+    <label>
+      Vampire Zombie Babies
+      <input type="checkbox" id="vampires" role="switch">
+    </label>
+  </main>
+
+  <!-- Images placed directly on the page -->
+  <img id="nighttimeImg" class="item" src="nighttime.png" alt="Nighttime">
+  <img id="cloudsImg" class="item" src="clouds.png" alt="Clouds">
+  <img id="treesImg" class="item" src="trees.png" alt="Trees">
+  <img id="rainbowsImg" class="item" src="rainbow.png" alt="Rainbow">
+  <img id="vampiresImg" class="item" src="baby.png" alt="Vampire Baby">
+
+  <script>
+    const ids = ["nighttime", "clouds", "trees", "rainbows", "vampires"];
+
+    // Add change listeners for toggling images
+    ids.forEach(id => {
+      document.getElementById(id).addEventListener("change", () => {
+        const checked = document.getElementById(id).checked;
+        toggleImage(id, checked);
+      });
+    });
+
+    function toggleImage(id, show) {
+      const img = document.getElementById(id + "Img");
+      if (img) {
+        if (show) {
+          img.classList.add("visible");
+        } else {
+          img.classList.remove("visible");
+        }
+      }
+    }
+  </script>
+</body>
+</html>
