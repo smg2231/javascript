@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>ISS Locator (Real Country)</title>
+  <style>
+    body {
+      font-family: system-ui, sans-serif;
+      background: #0b0c10;
+      color: #66fcf1;
+      text-align: center;
+      padding-top: 50px;
+    }
+    .card {
+      background: #1f2833;
+      margin: 0 auto;
+      padding: 20px 40px;
+      border-radius: 12px;
+      width: 400px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.3);
+    }
+    h1 { color: #45a29e; }
+    pre { text-align: left; color: #c5c6c7; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>ISS Locator</h1>
+    <pre id="output">Fetching ISS location...</pre>
+  </div>
+
+  <script>
+    class ISSLocator {
+      constructor() { this.data = null; }
+
+      async locate() {
+        try {
+          // Step 1: Get ISS position
+          const response = await fetch('https://api.wheretheiss.at/v1/satellites/25544');
+          if (!response.ok) throw new Error(`HTTP ${response.status}`);
+          const json = await response.json();
+
+          const timestamp = Math.floor(json.timestamp);
+          const latitude = json.latitude;
+          const longitude = json.longitude;
+
+          // Step 2: Reverse-geocode for country
+          const country = await this.#lookupCountry(latitude, longitude);
+
+          this.data = { timestamp, latitude, longitude, country, message: 'success' };
+          return { lat: latitude, lon: longitude };
+        } catch (error) {
+          console.error('Error locating ISS:', error.message);
+          this.data = null;
+          return { error: error.message };
+        }
+      }
+
+      latitude() { return this.data?.latitude ?? null; }
+      longitude() { return this.data?.longitude ?? null; }
+      timestamp() { return this.data?.timestamp ?? null; }
+
+      timestampHumanReadable() {
+        if (!this.data) return null;
+        return new Date(this.data.timestamp * 1000)
+          .toLocaleString('en-US', { dateStyle: 'long', timeStyle: 'short' });
+      }
+
+      country() { return this.data?.country ?? 'Unknown'; }
+
+      async #lookupCountry(lat, lon) {
+        try {
+          const url = `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${lat}&lon=${lon}`;
+          const res = await fetch(url, { headers: { 'User-Agent': 'ISSLocatorDemo/1.0' } });
+          const data = await res.json();
+
+          if (data && data.address && data.address.country) {
+            return data.address.country;
+          }
+          return 'Over Ocean';
+        } catch {
+          return 'Over Ocean';
+        }
+      }
+    }
+
+    async function updateISS() {
+      const sensor = new ISSLocator();
+      const pos = await sensor.locate();
+      const out = document.getElementById('output');
+
+      if (pos.error) {
+        out.textContent = 'Could not fetch ISS position: ' + pos.error;
+      } else {
+        out.textContent = JSON.stringify({
+          Latitude: sensor.latitude(),
+          Longitude: sensor.longitude(),
+          Timestamp: sensor.timestamp(),
+          HumanTime: sensor.timestampHumanReadable(),
+          Country: sensor.country()
+        }, null, 2);
+      }
+    }
+
+    updateISS();
+    setInterval(updateISS, 5000); // refresh every 5 seconds
+  </script>
+</body>
+</html>
