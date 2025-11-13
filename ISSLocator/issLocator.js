@@ -1,3 +1,5 @@
+import fetch from 'node-fetch';
+
 class ISSLocator {
   constructor() {
     this.data = null;
@@ -5,25 +7,30 @@ class ISSLocator {
 
   async locate() {
     try {
-      // Fetch data from the real ISS API
-      const response = await fetch('https://api.open-notify.org/iss-now.json');
+      // Using a reliable ISS API
+      const response = await fetch('https://api.wheretheiss.at/v1/satellites/25544');
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+
       const json = await response.json();
 
-      if (json.message !== 'success') {
-        throw new Error('Failed to fetch ISS position');
-      }
+      // wheretheiss.at returns fields like latitude, longitude, timestamp
+      const timestamp = Math.floor(json.timestamp);
+      const latitude = parseFloat(json.latitude);
+      const longitude = parseFloat(json.longitude);
 
-      const timestamp = json.timestamp;
-      const latitude = parseFloat(json.iss_position.latitude);
-      const longitude = parseFloat(json.iss_position.longitude);
-
-      // Optional: You could use a reverse geocoding API here for `country()`
-      // For now we’ll mock it:
+      // Optional mock country based on coordinates
       const country = this.#mockCountry(latitude, longitude);
 
-      this.data = { timestamp, latitude, longitude, country, message: json.message };
-      return { lat: latitude, lon: longitude };
+      this.data = {
+        timestamp,
+        latitude,
+        longitude,
+        country,
+        message: 'success'
+      };
 
+      // Return a simple coordinate object
+      return { lat: latitude, lon: longitude };
     } catch (error) {
       console.error('Error locating ISS:', error.message);
       this.data = null;
@@ -31,17 +38,9 @@ class ISSLocator {
     }
   }
 
-  latitude() {
-    return this.data?.latitude ?? null;
-  }
-
-  longitude() {
-    return this.data?.longitude ?? null;
-  }
-
-  timestamp() {
-    return this.data?.timestamp ?? null;
-  }
+  latitude() { return this.data?.latitude ?? null; }
+  longitude() { return this.data?.longitude ?? null; }
+  timestamp() { return this.data?.timestamp ?? null; }
 
   timestampHumanReadable() {
     if (!this.data) return null;
@@ -49,18 +48,18 @@ class ISSLocator {
       .toLocaleString('en-US', { dateStyle: 'long', timeStyle: 'short' });
   }
 
-  country() {
-    return this.data?.country ?? 'Unknown';
-  }
+  country() { return this.data?.country ?? 'Unknown'; }
 
-  // Mock function to simulate country lookup
+  // Simple mock (for demo) — you can replace with real reverse geocoding later
   #mockCountry(lat, lon) {
     if (lat > 20 && lat < 40 && lon > 50 && lon < 60) return 'United Arab Emirates';
+    if (lat > 30 && lat < 60 && lon > -10 && lon < 40) return 'Europe';
+    if (lat < -30 && lon > 100) return 'Australia';
     return 'Over Ocean';
   }
 }
 
-// Usage Example
+// Example usage
 (async () => {
   const sensor = new ISSLocator();
   const pos = await sensor.locate();
