@@ -1,11 +1,23 @@
+'use client';
+
 import Link from "next/link";
+import Counter from "../component/Counter";
+
+import { CounterStore } from "@/stores/CounterStore";
 
 export default function ProductPage() {
+  const count = CounterStore((state) => state.count);
+
   return (
     <main>
       <h1>Product Page</h1>
       <p>This is the product page.</p>
-       <nav>
+
+      <h2>Shared Count Value: {count}</h2>
+
+      <Counter />
+
+      <nav>
         <ul>
           <li><Link href="/about">About</Link></li>
           <li><Link href="/contact">Contact</Link></li>
@@ -13,5 +25,5 @@ export default function ProductPage() {
         </ul>
       </nav>
     </main>
-  )
+  );
 }
